@@ -15,3 +15,7 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT C
 # GLFW Library
 add_subdirectory(Dependencies/glfw)
 target_link_libraries(${PROJECT_NAME} glfw)
+
+# Glad Library
+add_subdirectory(Dependencies/glad)
+target_link_libraries(${PROJECT_NAME} glad)
