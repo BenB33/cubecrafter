@@ -1,0 +1,1 @@
+call cmake -S Source -B build
