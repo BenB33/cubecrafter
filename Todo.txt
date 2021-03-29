@@ -1,0 +1,30 @@
+3D game - 
+	1st person voxel game
+	not limited to voxels - other shapes too
+	survival gameplay
+	player is roughly 3 blocks tall?
+	smaller blocks: more detailed building
+	pixely aesthetic
+	guns
+	single player with the option of multiplayer
+	villages, structures, NPCs
+	infinite world - procedural generation, biome system
+	some kind of long term goal for the player
+		other dimensions?
+		
+Windows, Linux, MacOS
+C++, OpenGL
+
+	GLFW
+	Extension loader? Glad
+	
+	GLM
+	OpenAL
+	ASIO (not the audio one)
+	minor libraries:
+		stb_image
+		
+TODO:
+	Make a window
+
+
