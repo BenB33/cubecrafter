@@ -1,19 +1,14 @@
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "graphics/window.h";
+
 
 int main()
 {
-	if (!glfwInit()) std::cerr << "Error Initalizing glfw\n";
+	Window window;
 
-	GLFWwindow* main_window = glfwCreateWindow(1280, 720, "Cubed Crafter", NULL, NULL);
-
-	if (!main_window) std::cerr << "Error Creating window\n";
-
-	while (!glfwWindowShouldClose(main_window))
+	while (window.isOpen())
 	{
-		
-	}
 
-	glfwDestroyWindow(main_window);
-	glfwTerminate();
+		// do logic
+		window.update();
+	}
 }
