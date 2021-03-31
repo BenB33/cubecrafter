@@ -1,5 +1,6 @@
 #include "graphics/window.h"
 #include "graphics/mesh.h"
+#include "graphics/shader.h"
 
 int main()
 {
@@ -7,24 +8,28 @@ int main()
 
 	window.setClearColour(0.1f, 0.4f, 0.6f, 1.0f);
 
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
 	float vertices[]
 	{  // x       y      z
-		-0.5f,   0.5f,  0.0f, // Top Left	  (0)
-		 0.5f,   0.5f,  0.0f, // Top Right    (1)
-		 0.5f,  -0.5f,  0.0f, // Bottom Right (2)
-		-0.5f,  -0.5f,  0.0f,  // Bottom Left  (3)
+		-0.5f,  -0.5f,  0.0f,  // Bottom Left  (0)
+		 0.5f,  -0.5f,  0.0f, // Bottom Right  (1)
+		 0.5f,   0.5f,  0.0f, // Top Right     (2)
+		-0.5f,   0.5f,  0.0f, // Top Left	   (3)
 	};
 
 	unsigned int indices[] =
 	{
 		0, 1, 2,
 		2, 3, 0,
-		4, 5, 6,
-		6, 7, 4,
 	};
 
 
 	Mesh squareMesh(vertices, sizeof(vertices), indices, sizeof(indices));
+
+	Shader shader("../Resources/Shaders/shader");
+	shader.bind();
 
 	while (window.isOpen())
 	{

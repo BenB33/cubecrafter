@@ -16,11 +16,15 @@ set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CSS_FLAGS_RELEASE} -DCC_BUILD_RELEASE -DND
 # Use source_group to create filters in visual studio
 file(GLOB CORE_FILES CONFIGURE_DEPENDS "cubedcrafter/*cpp" "cubedcrafter/*.h")
 source_group("CubedCrafter" FILES ${CORE_FILES})
+
 file(GLOB GRAPHICS_FILES CONFIGURE_DEPENDS "cubedcrafter/graphics/*.cpp" "cubedcrafter/graphics/*.h")
 source_group("CubedCrafter\\Graphics" FILES ${GRAPHICS_FILES})
 
+file(GLOB SHADER_SOURCE_FILES CONFIGURE_DEPENDS "../Resources/Shaders/*.glsl")
+source_group("CubedCrafter\\Shaders" FILES ${SHADER_SOURCE_FILES})
+
 # Set build target to an executable binary
-add_executable(${PROJECT_NAME} ${CORE_FILES} ${GRAPHICS_FILES})
+add_executable(${PROJECT_NAME} ${CORE_FILES} ${GRAPHICS_FILES} ${SHADER_SOURCE_FILES})
 
 
 
