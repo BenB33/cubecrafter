@@ -1,4 +1,5 @@
 #include "graphics/window.h"
+#include "graphics/mesh.h"
 
 int main()
 {
@@ -6,34 +7,32 @@ int main()
 
 	window.setClearColour(0.1f, 0.4f, 0.6f, 1.0f);
 
-	GLfloat vertices[]
+	float vertices[]
 	{  // x       y      z
-		-0.5f,  -0.5f,  0.0f,
-		 0.5f,  -0.5f,  0.0f,
-		 0.0f,   0.5f,  0.0f
+		-0.5f,   0.5f,  0.0f, // Top Left	  (0)
+		 0.5f,   0.5f,  0.0f, // Top Right    (1)
+		 0.5f,  -0.5f,  0.0f, // Bottom Right (2)
+		-0.5f,  -0.5f,  0.0f,  // Bottom Left  (3)
 	};
 
-	GLuint vbo_id, vao_id;
+	unsigned int indices[] =
+	{
+		0, 1, 2,
+		2, 3, 0,
+		4, 5, 6,
+		6, 7, 4,
+	};
 
-	// Binding Buffers
-	glGenBuffers(1, &vbo_id);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	// Binding Vertex Array
-	glGenVertexArrays(1, &vao_id);
-	glBindVertexArray(vao_id);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), nullptr);
+	Mesh squareMesh(vertices, sizeof(vertices), indices, sizeof(indices));
 
 	while (window.isOpen())
 	{
 		// Clear
 		window.clear();
 
-		// Render
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// Render some shit right here
+		squareMesh.render();
 
 		// Update
 		window.update();
