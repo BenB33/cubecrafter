@@ -1,25 +1,34 @@
 #include "window.h"
 
-#include <iostream>
+#include "asserts.h"
 
 int Window::windowCount = 0;
 
-Window::Window()
+Window::Window(int width_, int height_) : width(width_), height(height_)
 {
 	// If no windows, initialize glfw
-	if (windowCount == 0) if (!glfwInit()) std::cerr << "Error Initalizing glfw\n";
+	if (windowCount == 0)
+	{
+		int result = glfwInit();
+		CC_ASSERT(result, "Error initialising GLFW");
+	}
 
 	// Create glfw window, error checked
-	mainWindow = glfwCreateWindow(1280, 720, "Cubed Crafter", NULL, NULL);
-	if (!mainWindow) std::cerr << "Error Creating window\n";
+	mainWindow = glfwCreateWindow(width, height, "Cubed Crafter", NULL, NULL);
+	CC_ASSERT(mainWindow, "Error creating window.");
 
 	// make the window current context
 	glfwMakeContextCurrent(mainWindow);
 
 	// Initialize glad
-	if (windowCount == 0) if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) std::cerr << "Error initalizing glad\n";
-	
+	if (windowCount == 0)
+	{
+		int result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		CC_ASSERT(result, "Error initialising Glad");
+	}
+
 	++windowCount;
+	glViewport(0, 0, width, height);
 }
 
 Window::~Window()
@@ -39,6 +48,12 @@ void Window::update()
 void Window::clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+
+void Window::setClearColour(float r, float g, float b, float a) const
+{
+	glClearColor(r, g, b, a);
 }
 
 bool Window::isOpen() const

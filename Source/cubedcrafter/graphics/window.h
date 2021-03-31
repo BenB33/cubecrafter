@@ -8,13 +8,15 @@ class Window
 private:
 	GLFWwindow* mainWindow;
 	static int windowCount;
+	int width, height;
 
 public:
-	Window();
+	Window(int width_ = 1280, int height_ = 720);
 	~Window();
 
 	void update();
 	void clear();
+	void setClearColour(float r, float g, float b, float a) const;
 	bool isOpen() const;
 };
 
