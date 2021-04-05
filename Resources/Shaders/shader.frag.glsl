@@ -2,8 +2,8 @@
 
 out vec4 o_frag_colour;
 
-in vec4 v_pos_col;
+in vec3 v_frag_pos;
 
 void main() {
-   o_frag_colour = v_pos_col + 0.5;
+   o_frag_colour = vec4(v_frag_pos.x, v_frag_pos.y, v_frag_pos.z, 1);
 }

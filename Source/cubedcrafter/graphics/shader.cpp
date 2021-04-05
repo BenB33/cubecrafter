@@ -2,6 +2,7 @@
 #include "shader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <fstream>
 #include <string>
 
@@ -96,4 +97,10 @@ Shader::~Shader()
 void Shader::bind() const
 {
 	glUseProgram(shaderID);
+}
+
+void Shader::uploadMatrix(const glm::mat4& matrix, const char* uniformName) const
+{
+	GLint location = glGetUniformLocation(shaderID, uniformName);
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }

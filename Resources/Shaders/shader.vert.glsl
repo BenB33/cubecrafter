@@ -2,9 +2,11 @@
 
 layout (location = 0) in vec3 a_pos;
 
-out vec4 v_pos_col;
+out vec3 v_frag_pos;
+
+uniform mat4 u_model_matrix;
 
 void main() {
-  v_pos_col = vec4(a_pos, 1);
-  gl_Position = vec4(a_pos.x, a_pos.y, a_pos.z, 1.0);
+	v_frag_pos = a_pos + 0.6;
+	gl_Position = u_model_matrix * vec4(a_pos.x, a_pos.y, a_pos.z, 1.0);
 }

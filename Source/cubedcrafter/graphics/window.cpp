@@ -1,6 +1,5 @@
-#include "window.h"
-
 #include "asserts.h"
+#include "window.h"
 
 int Window::windowCount = 0;
 
@@ -26,6 +25,12 @@ Window::Window(int width_, int height_) : width(width_), height(height_)
 		int result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		CC_ASSERT(result, "ERROR: Initialising Glad");
 	}
+
+	// Get Graphics Card info and print to console (Debug mode only)
+	CC_LOG("OpenGL Version: %s",(const char*)glGetString(GL_VERSION));
+	CC_LOG("\nGLSL Version: %s", (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
+	CC_LOG("\nGPU: %s %s", (const char*)glGetString(GL_VENDOR), (const char*)glGetString(GL_RENDERER));
+
 
 	++windowCount;
 	glViewport(0, 0, width, height);
@@ -59,4 +64,9 @@ void Window::setClearColour(float r, float g, float b, float a) const
 bool Window::isOpen() const
 {
 	return !glfwWindowShouldClose(mainWindow);
+}
+
+bool Window::isKeyPressed(int keyCode) const
+{
+	return glfwGetKey(mainWindow, keyCode) == GLFW_PRESS;
 }

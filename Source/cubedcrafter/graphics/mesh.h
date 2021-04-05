@@ -10,7 +10,7 @@ private:
 	int indexCount;
 
 public:
-	Mesh(float* vertices, int vertexCount_, unsigned int* indices, int indexCount_);
+	Mesh(float* vertices, size_t vertexCount_, unsigned int* indices, size_t indexCount_);
 	~Mesh();
 	void render() const;
 

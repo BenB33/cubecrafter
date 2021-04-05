@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-Mesh::Mesh(float* vertices, int vertexCount_, unsigned int* indices, int indexCount_)
+Mesh::Mesh(float* vertices, size_t vertexCount_, unsigned int* indices, size_t indexCount_)
 {
 	indexCount = indexCount_;
 

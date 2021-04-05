@@ -20,11 +20,14 @@ source_group("CubedCrafter" FILES ${CORE_FILES})
 file(GLOB GRAPHICS_FILES CONFIGURE_DEPENDS "cubedcrafter/graphics/*.cpp" "cubedcrafter/graphics/*.h")
 source_group("CubedCrafter\\Graphics" FILES ${GRAPHICS_FILES})
 
+file(GLOB ENTITY_FILES CONFIGURE_DEPENDS "cubedcrafter/entities/*.cpp" "cubedcrafter/entities/*.h")
+source_group("CubedCrafter\\Entities" FILES ${ENTITY_FILES})
+
 file(GLOB SHADER_SOURCE_FILES CONFIGURE_DEPENDS "../Resources/Shaders/*.glsl")
 source_group("CubedCrafter\\Shaders" FILES ${SHADER_SOURCE_FILES})
 
 # Set build target to an executable binary
-add_executable(${PROJECT_NAME} ${CORE_FILES} ${GRAPHICS_FILES} ${SHADER_SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${CORE_FILES} ${GRAPHICS_FILES} ${ENTITY_FILES} ${SHADER_SOURCE_FILES})
 
 
 
@@ -64,6 +67,9 @@ target_link_libraries(${PROJECT_NAME} glfw)
 # Glad Library
 add_subdirectory(Dependencies/glad)
 target_link_libraries(${PROJECT_NAME} glad)
+
+# glm Library
+target_include_directories(${PROJECT_NAME} PRIVATE "Dependencies/glm")
 
 # Include files from project as if the file was in the root directory
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/cubedcrafter")

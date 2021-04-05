@@ -14,9 +14,12 @@
 
 
 #ifdef CC_BUILD_DEBUG
-#	include <iostream>
-#	define CC_ASSERT(x, ...) { if(!x) { std::cerr << __VA_ARGS__ << "\n"; CC_DEBUG_BREAK(); } }
+#	include <stdio.h>
+#	define CC_LOG(...) printf(__VA_ARGS__)
+
+#	define CC_ASSERT(x, ...) { if(!x) { CC_LOG(__VA_ARGS__); CC_DEBUG_BREAK(); } }
 #else
+#	define CC_LOG(...)
 #	define CC_ASSERT(x, ...)
 #endif // CC_BUILD_DEBUG
 

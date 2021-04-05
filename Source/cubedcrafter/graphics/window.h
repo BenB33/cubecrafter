@@ -18,6 +18,8 @@ public:
 	void clear();
 	void setClearColour(float r, float g, float b, float a) const;
 	bool isOpen() const;
+
+	bool isKeyPressed(int keyCode) const;
 };
 
 #endif // CUBEDCRAFTER_GRAPHICS_WINDOW_H_
