@@ -36,12 +36,19 @@ void Camera::setOrthographic()
 
 void Camera::freeCam(const Window& window)
 {
+	if (window.getIsMouseLocked())
+	{
+		rotation.y += window.getMouseDeltaX() * 0.001f;
+		rotation.x += window.getMouseDeltaY() * 0.001f;
+	}
+
+
 	if (window.isKeyPressed(GLFW_KEY_UP))    rotation.x += rotateSpeed;
 	if (window.isKeyPressed(GLFW_KEY_DOWN))  rotation.x -= rotateSpeed;
 	if (window.isKeyPressed(GLFW_KEY_LEFT))  rotation.y += rotateSpeed;
 	if (window.isKeyPressed(GLFW_KEY_RIGHT)) rotation.y -= rotateSpeed;
 	
-	rotation.x = std::clamp(rotation.x, glm::radians(-45.0f), glm::radians(45.0f));
+	rotation.x = std::clamp(rotation.x, glm::radians(-90.0f), glm::radians(90.0f));
 
 	const glm::vec3 front = glm::normalize(glm::vec3(-sin(rotation.y), 0, -cos(rotation.y)));
 	const glm::vec3 right = glm::cross(front, glm::vec3(0, 1, 0));
@@ -58,5 +65,4 @@ void Camera::freeCam(const Window& window)
 	
 	
 	recalculateView();
-	
 }
