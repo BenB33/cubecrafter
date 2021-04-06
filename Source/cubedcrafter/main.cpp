@@ -1,7 +1,8 @@
-#include "graphics/window.h"
+#include "entities/camera.h"
+#include "entities/entity.h"
 #include "graphics/mesh.h"
 #include "graphics/shader.h"
-#include "entities/entity.h"
+#include "graphics/window.h"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -30,12 +31,19 @@ int main()
 		2, 3, 0,
 	};
 
+	Shader shader("../Resources/Shaders/shader");
+	shader.bind();
+
+	Camera camera;
+	camera.setPerspective(window.getWidth(), window.getHeight());
 
 	std::shared_ptr<Mesh> squareMesh = std::make_shared<Mesh>(vertices, sizeof(vertices), indices, sizeof(indices));
 	Entity squareEntity(squareMesh);
+	Entity squareEntity2(squareMesh);
+	squareEntity2.setScale(glm::vec3(0.5f, 0.5f, 0.5f));
+	squareEntity2.setRotation(glm::vec3(0.22f, 0.5f, 0.1f));
+	squareEntity2.setPosition(glm::vec3(0.5f, 0.25f, 0));
 
-	Shader shader("../Resources/Shaders/shader");
-	shader.bind();
 
 	float xPos = 0;
 	float yPos = 0;
@@ -48,37 +56,16 @@ int main()
 		// Clear
 		window.clear();
 
+		// Upload Camera to shader
+		camera.freeCam(window);
+		camera.loadToShader(shader);
+
 		// Logic
-		if (window.isKeyPressed(GLFW_KEY_W))
-		{
-			squareEntity.setPosition(squareEntity.getPosition() + glm::vec3(0, 0.1f, 0));
-		}
-		if (window.isKeyPressed(GLFW_KEY_A))
-		{
-			squareEntity.setPosition(squareEntity.getPosition() + glm::vec3(-0.1f, 0, 0));
-		}
-		if (window.isKeyPressed(GLFW_KEY_S))
-		{
-			squareEntity.setPosition(squareEntity.getPosition() + glm::vec3(0, -0.1f, 0));
-		}
-		if (window.isKeyPressed(GLFW_KEY_D))
-		{
-			squareEntity.setPosition(squareEntity.getPosition() + glm::vec3(0.1f, 0, 0));
-		}
-
-		if (window.isKeyPressed(GLFW_KEY_MINUS))
-		{
-			squareEntity.setScale(squareEntity.getScale() + glm::vec3(-0.1f, -0.1f,-0.1f));
-		}
-		if (window.isKeyPressed(GLFW_KEY_EQUAL))
-		{
-			squareEntity.setScale(squareEntity.getScale() + glm::vec3(0.1f, 0.1f, 0.1f));
-		}
-
 
 
 		// Render some shit right here
 		squareEntity.render(shader);
+		squareEntity2.render(shader);
 
 		// Update
 		window.update();

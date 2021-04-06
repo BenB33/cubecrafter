@@ -14,6 +14,9 @@ public:
 	Window(int width_ = 1280, int height_ = 720);
 	~Window();
 
+	int getWidth() const { return width; }
+	int getHeight() const { return height; }
+
 	void update();
 	void clear();
 	void setClearColour(float r, float g, float b, float a) const;
